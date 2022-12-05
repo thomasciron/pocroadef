@@ -3,7 +3,7 @@ class Instance:
         with open("Instances/instance_"+str(index)+".txt", "r") as f:
             data = f.read().split("\n")
         truck_dimensions = data[0].split(" ")
-        self.truck = Truck(truck_dimensions[0], truck_dimensions[1])
+        self.truck = Truck(int(truck_dimensions[1]), int(truck_dimensions[2]))
         self.items = []
         for i in range(1,len(data)):
             self.items.append(Item(data[i].split(" ")))
@@ -13,8 +13,10 @@ class Truck:
     def __init__(self, size_x, size_y):
         self.size_x = size_x
         self.size_y = size_y
+
     def __str__(self):
         return "Truck : " + str(self.size_x) + " x " + str(self.size_x)
+
 
 class Item:
     def __init__(self, data):
@@ -25,6 +27,7 @@ class Item:
         self.orientation_forced = bool(data[4])
         self.supplier = int(data[5])
         self.dock = int(data[6])
+
     def __str__(self):
         return "objet " + str(self.id)
 
