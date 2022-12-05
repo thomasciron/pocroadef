@@ -3,7 +3,7 @@ class Instance:
         with open("Instances/instance_"+str(index)+".txt", "r") as f:
             data = f.read().split("\n")
         truck_dimensions = data[0].split(" ")
-        self.truck = Truck(int(truck_dimensions[1]), int(truck_dimensions[2]))
+        self.truck = Truck(int(truck_dimensions[1]), int(truck_dimensions[0]))
         self.items = []
         for i in range(1,len(data)):
             self.items.append(Item(data[i].split(" ")))
