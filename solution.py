@@ -12,19 +12,28 @@ class ItemSelected:
 
 
 class Solution:
-    def __init__(self, instance, item_list, truck_count=0):
-        self.instance = instance
-        self.item_list = item_list
+    def __init__(self, instance: Instance, item_list, truck_count=0):
+        self.instance = instance  # contient l'instance
+        self.item_list = item_list  # contient une liste d'objet ItemSelected
         self.map = [[] for i in range(truck_count)]
         self.make_map()
 
     def make_map(self):
+        """Creer la matrice qui pour chaque ligne represente un camion, et y associe une liste d'item"""
         for item in self.item_list:
             self.map[item.truck].append(item)
 
     def draw_solution(self):
-        draw_truck_contain((self.instance.truck.size_x, self.instance.truck.size_y), self.map[0])
-        draw_truck_contain((self.instance.truck.size_x, self.instance.truck.size_y), self.map[1])
+        maxtruck = 10
+        truck_size = (self.instance.truck.size_x, self.instance.truck.size_y)
+        nb_truck = len(self.map)
+        roots = [tk.Tk() for k in range((nb_truck//maxtruck)+1)]
+        for truck_id in range(nb_truck):
+            root_id = truck_id//maxtruck
+            grid_id = truck_id % maxtruck
+            draw_truck_contain(roots[root_id],grid_id, truck_size, self.map[truck_id])
+        for root in roots:
+            root.mainloop()
 
     def item_flip_is_verified(self, item):
         """Verifie que la contrainte de flip est respecté (True si respecté False sinon)"""
@@ -139,7 +148,7 @@ def draw_ten_truck():
 
 
 if __name__ == '__main__':
-    draw_ten_truck()
-
+    #draw_ten_truck()
+    print(1//10)
 
 

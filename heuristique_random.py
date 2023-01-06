@@ -41,9 +41,10 @@ class HeuristiqueRandom:
 
         # Si on dépasse en X on change de ligne et on inverse le remplissage
         elif 0 > x + width or x + width > self.truck_size[0]:
-            self.insertion_point = (0 + (self.insertion_mode == -1) * self.truck_size[0], self.maxY)
             self.insertion_mode *= -1
+            self.insertion_point = (0 + (self.insertion_mode == -1) * self.truck_size[0], self.maxY)
             self.insert(item)
+
         else:
             self.insert(item)
 
