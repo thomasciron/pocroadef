@@ -24,6 +24,7 @@ class Solution:
 
     def draw_solution(self):
         draw_truck_contain((self.instance.truck.size_x, self.instance.truck.size_y), self.map[0])
+        draw_truck_contain((self.instance.truck.size_x, self.instance.truck.size_y), self.map[1])
 
     def item_flip_is_verified(self, item):
         """Verifie que la contrainte de flip est respecté (True si respecté False sinon)"""
@@ -112,16 +113,13 @@ class Solution:
 def draw_item(canva,origin,size,color='lightblue'):
     canva.create_rectangle(origin[0], origin[1], origin[0]+size[0], origin[1]+size[1], fill=color)
 
-def draw_truck_contain(truck_size, items):
-    cnv_size = 1500, 800
-    scale = (min(cnv_size) / max(truck_size)) * 0.9
+def draw_truck_contain(root, index,truck_size, items):
+    cnv_size = 350, 350
+    scale = (min(cnv_size) / max(truck_size)) *0.9
 
     displayed_truck = (truck_size[0] * scale, truck_size[1] * scale)
-
-    root = tk.Tk()
     cnv = tk.Canvas(root, width=cnv_size[0], height=cnv_size[1], bg="ivory")
-    cnv.pack()
-    x0 = cnv_size[0] / 2 - displayed_truck[0] // 2
+    x0 = cnv_size[0] // 2 - displayed_truck[0] // 2
     y0 = cnv_size[1] // 2 - displayed_truck[1] // 2
 
     draw_item(cnv, (x0, y0), displayed_truck, "white")
@@ -129,13 +127,19 @@ def draw_truck_contain(truck_size, items):
         new_size = tuple([scale*x for x in item.size])
         new_insertion_point = tuple([scale*x for x in item.insertion_point])
         draw_item(cnv, (x0+new_insertion_point[0], y0+new_insertion_point[1]), new_size)
+    cnv.grid(column=index % 5,row=index //5)
+
+def draw_ten_truck():
+    root = tk.Tk()
+    for k in range(10):
+        draw_truck_contain(root, k, (1000, 2000),
+                           [ItemSelected(0, 0, 100, 200, False, 0, 0), ItemSelected(100, 0, 100, 200, False, 0, 0)])
+
     root.mainloop()
 
 
 if __name__ == '__main__':
-
-    draw_truck_contain((1000, 2000),[ItemSelected(0,0,100,200,False,0,0),ItemSelected(100,0,100,200,False,0,0)])
-    draw_truck_contain((1000, 2000),[ItemSelected(0,0,100,200,False,0,0),ItemSelected(100,0,100,200,False,0,0)])
+    draw_ten_truck()
 
 
 
